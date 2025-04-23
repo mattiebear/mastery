@@ -22,6 +22,13 @@ defmodule QuizBuilders do
     )
   end
 
+  def single_digit_addition_template_fields() do
+    template_fields(
+      name: :single_digit_addition,
+      generators: addition_generators(single_digits())
+    )
+  end
+
   def double_digit_addition_template_fields() do
     template_fields(
       name: :double_digit_addition,
@@ -39,13 +46,6 @@ defmodule QuizBuilders do
 
   def single_digits() do
     Enum.to_list(1..9)
-  end
-
-  def single_digit_addition_template_fields() do
-    template_fields(
-      name: :single_digit_addition,
-      generators: addition_generators(single_digits())
-    )
   end
 
   def addition_checker(substitutions, answer) do
