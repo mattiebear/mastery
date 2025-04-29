@@ -13,10 +13,10 @@ defmodule Mastery.Examples.Math do
   end
 
   def addition_generators do
-    [
+    %{
       left: Enum.to_list(0..9),
       right: Enum.to_list(0..9)
-    ]
+    }
   end
 
   def addition_checker(substitutions, answer) do
