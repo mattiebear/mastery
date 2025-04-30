@@ -31,10 +31,12 @@ defmodule Mastery.Boundary.QuizSession do
   end
 
   def start_link({quiz, email}) do
-    GenServer.start_link(__MODULE__, {quiz, email}, name: via({quiz, email}))
+    GenServer.start_link(__MODULE__, {quiz, email}, name: via({quiz.title, email}))
   end
 
   def take_quiz(quiz, email) do
+    # This tells the top level Mastery.Supervisor.QuizSession to start a new quiz session process
+    # See application.ex for more details. This will end up calling child_spec/1 with the passed {quiz, email} tuple
     DynamicSupervisor.start_child(Mastery.Supervisor.QuizSession, {__MODULE__, {quiz, email}})
   end
 

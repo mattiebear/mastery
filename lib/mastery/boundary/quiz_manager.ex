@@ -35,15 +35,15 @@ defmodule Mastery.Boundary.QuizManager do
     {:reply, quizzes[title], quizzes}
   end
 
-  def build_quiz(manager \\ __MODULE__, quiz_fields) do
-    GenServer.call(manager, {:build_quiz, quiz_fields})
+  def build_quiz(quiz_fields) do
+    GenServer.call(__MODULE__, {:build_quiz, quiz_fields})
   end
 
-  def add_template(manager \\ __MODULE__, quiz_title, template_fields) do
-    GenServer.call(manager, {:add_template, quiz_title, template_fields})
+  def add_template(quiz_title, template_fields) do
+    GenServer.call(__MODULE__, {:add_template, quiz_title, template_fields})
   end
 
-  def lookup_quiz_by_title(manager \\ __MODULE__, title) do
-    GenServer.call(manager, {:lookup_quiz_by_title, title})
+  def lookup_quiz_by_title(title) do
+    GenServer.call(__MODULE__, {:lookup_quiz_by_title, title})
   end
 end
