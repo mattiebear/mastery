@@ -3,10 +3,6 @@ defmodule Mastery do
   alias Mastery.Boundary.{TemplateValidator, QuizValidator}
   alias Mastery.Core.Quiz
 
-  def start_quiz_manager do
-    GenServer.start_link(QuizManager, %{}, name: QuizManager)
-  end
-
   def build_quiz(fields) do
     with :ok <- QuizValidator.errors(fields),
          :ok <- QuizManager.build_quiz(fields) do
@@ -27,18 +23,18 @@ defmodule Mastery do
 
   def take_quiz(title, email) do
     with %Quiz{} = quiz <- QuizManager.lookup_quiz_by_title(title),
-         {:ok, session} <- GenServer.start_link(QuizSession, {quiz, email}) do
-      session
+         {:ok, _} <- QuizSession.take_quiz(quiz, email) do
+      {title, email}
     else
       error -> error
     end
   end
 
-  def select_question(session) do
-    QuizSession.select_question(session)
+  def select_question(name) do
+    QuizSession.select_question(name)
   end
 
-  def answer_question(session, answer) do
-    QuizSession.answer_question(session, answer)
+  def answer_question(name, answer) do
+    QuizSession.answer_question(name, answer)
   end
 end
