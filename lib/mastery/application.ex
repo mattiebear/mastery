@@ -7,8 +7,6 @@ defmodule Mastery.Application do
 
   @impl Application
   def start(_type, _args) do
-    IO.puts("Starting Mastery Application")
-
     children = [
       {Mastery.Boundary.QuizManager, name: Mastery.Boundary.QuizManager},
       {Registry, name: Mastery.Registry.QuizSession, keys: :unique},
